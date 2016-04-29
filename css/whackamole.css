@@ -1,0 +1,46 @@
+body{
+    background-color: black;
+    font-family: 'Arvo', serif; 
+}
+#header{
+    text-align: center;
+}
+h1 {
+    color: #BE3228;
+}
+.start{
+    font-size: .8em;
+    font-family: 'Arvo', serif; 
+    text-align: center;
+    background-color: #46A19E;
+    color: black;
+    border-color: black;
+}
+#timer {
+    font-size: 1em;
+    font-family: 'Arvo', serif; 
+    border-color: black;
+    text-align: center;
+    background-color: #79847A;   
+}
+#score{
+    font-size: 1em;
+}
+.gameboard{
+    width: 400px;
+    height: 400px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: black;
+}
+.hole {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    float: left;   
+}
+.active{
+    background-image: url(/img/jerry.png);
+}
+
+

@@ -1,0 +1,123 @@
+<!Doctype html>
+<html>
+<head>
+    <title>Whackamole</title>
+    <link rel="stylesheet" href="/css/whackamole.css">
+    <link href='https://fonts.googleapis.com/css?family=Arvo:400,700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <div id="header">
+        <h1>Catchin' Jerry</h1>
+    <button class='start' id='go'>Start</button>
+    <p><input type= "text"id="timer" readonly="">
+    <button id='score'>Score: 0</button></p>
+    </div>
+
+    <div class='gameboard'>
+        <div class='hole' id='one'></div>
+        <div class='hole' id='two'></div>
+        <div class='hole' id='three'></div>
+        <div class='hole' id='four'></div>
+        <div class='hole' id='five'></div>
+        <div class='hole' id='six'></div>
+        <div class='hole' id='seven'></div>
+        <div class='hole' id='eight'></div>
+        <div class='hole' id='nine'></div>
+        <div class='hole' id='ten'></div>
+        <div class='hole' id='eleven'></div>
+        <div class='hole' id='twelve'></div>
+        <div class='hole' id='thirteen'></div>
+        <div class='hole' id='fourteen'></div>
+        <div class='hole' id='fifteen'></div>
+    </div>
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script>
+'use strict';
+
+var userIndex = 0;
+var success= [];
+
+
+ var gameTimer = 30;
+ function timeIt(){
+    $('#timer').val("Time: " + gameTimer.length);
+    disable();
+    var i = 0;
+    var intervalId = setInterval(function(){
+        gameTimer-=1;
+        document.getElementById('timer').innerHTML = gameTimer.toString();
+        if (gameTimer <= 0){
+            alert('Game Over');
+            location.reload(true);
+        }
+
+    },1000)
+};
+
+
+// begin 
+$('#go').click(function(event){
+    success = [];
+    $('#score').text('Score: '+ success.length);
+    copy();
+    timeIt();
+});
+
+//animating moles based on id 
+function animateMole(id) {
+    $('#' + id).addClass('active');
+    setTimeout(function(){
+        $('#' + id).removeClass('active');
+    },700); //may want to change to 800 this could be a little too fast
+};
+
+//listenl for active mole & adding score
+$('.hole').click(function(event){
+    var moleClicked = $(this);
+    if (moleClicked.hasClass('active')){
+            moleClicked.removeClass('active');
+            userIndex += 1;
+            // console.lo
+            success.push(userIndex);
+        $('#score').text('Score: '+ success.length);
+        if (userIndex >= 1){
+            userIndex = 0;
+        }
+        //how many moles it takes to win 
+        if(success.length == 8){
+            alert('Congrats, you won!');
+            location.reload(true);
+        }
+    } else {
+        success.shift();
+        $('#score').text('Score: '+ success.length);
+
+        //if lost
+        if (success.length <= 0) {
+            alert('Game Over :(');
+            location.reload(true)
+        };
+    }
+});
+
+//animates mole
+function getRandomMole() {
+    var intervalId = setInterval(function(){
+        var mole = $('.hole');
+        var rand = Math.floor(Math.random()*15);
+        var buttonToAnimate = mole[rand];
+        var id = buttonToAnimate.getAttribute('id');
+        animateMole(id);
+    },1500);
+}
+//begin game
+function copy() {
+    var i = 0;
+    getRandomMole();
+};
+
+
+</script>
+</body>
+</html>
